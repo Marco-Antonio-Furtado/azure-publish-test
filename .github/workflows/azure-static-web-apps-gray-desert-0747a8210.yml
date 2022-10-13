@@ -10,15 +10,46 @@ on:
       - main
 
 jobs:
+
+    CI-CD:
+    steps:
+
+      - name: Checkout repo
+        uses: actions/checkout@v2
+
+      - name: Setup R
+        uses: r-lib/actions/setup-r@v1
+        with:
+          r-version: ${{ matrix.config.r }}
+
+      - name: Install system dependencies
+        run: |
+          while read -r cmd
+          do
+            eval sudo $cmd
+          done < <(Rscript -e 'writeLines(remotes::system_requirements("ubuntu", "20.04"))')
+      - name: Install R dependencies
+        run: |
+          remotes::install_deps(dependencies = TRUE)
+          remotes::install_cran("rcmdcheck")
+        shell: Rscript {0}
+
+      - name: Create and populate .Renviron file
+        env:
+          AWS_HOST: "SECRET!!!!!!!!!!"
+
+        run: |
+          touch scripts.js
+          echo aws_host="$AWS_HOST" >> scripts.js
+          ls ${{ github.workspace }}
+        shell: bash
+
+
   build_and_deploy_job:
     if: github.event_name == 'push' || (github.event_name == 'pull_request' && github.event.action != 'closed')
     runs-on: ubuntu-latest
     name: Build and Deploy Job
-    steps:
-
-      - name: Create and populate scripts.js file
-        echo "testee!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
-          
+    steps:         
       - uses: actions/checkout@v2
         with:
           submodules: true
