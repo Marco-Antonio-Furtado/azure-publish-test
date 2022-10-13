@@ -10,11 +10,16 @@ on:
       - main
 
 jobs:
-  create_env_file:
-    - name: Create and populate scripts.js file
+  build_and_deploy_job:
+    if: github.event_name == 'push' || (github.event_name == 'pull_request' && github.event.action != 'closed')
+    runs-on: ubuntu-latest
+    name: Build and Deploy Job
+    steps:
+    
+      - name: Create and populate scripts.js file
     env:
-    SECRET: "SEGREDO!!! SHHHH"
-      run: |
+      SECRET: "SEGREDO!!! SHHHH"
+    run: |
         touch scripts.js
         echo secret="$SECRET" >> scripts.js
 
@@ -27,13 +32,6 @@ jobs:
         echo "ls -a ${{ github.workspace }}"
         ls -a ${{ github.workspace }}
           
-
-
-  build_and_deploy_job:
-    if: github.event_name == 'push' || (github.event_name == 'pull_request' && github.event.action != 'closed')
-    runs-on: ubuntu-latest
-    name: Build and Deploy Job
-    steps:
       - uses: actions/checkout@v2
         with:
           submodules: true
