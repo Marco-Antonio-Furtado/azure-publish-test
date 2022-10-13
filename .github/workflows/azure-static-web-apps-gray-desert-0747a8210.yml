@@ -15,22 +15,9 @@ jobs:
     runs-on: ubuntu-latest
     name: Build and Deploy Job
     steps:
-    
+
       - name: Create and populate scripts.js file
-    env:
-      SECRET: "SEGREDO!!! SHHHH"
-    run: |
-        touch scripts.js
-        echo secret="$SECRET" >> scripts.js
-
-        echo "cat scripts.js"
-        cat scripts.js
-
-        echo "ls -a ."
-        ls -a .
-
-        echo "ls -a ${{ github.workspace }}"
-        ls -a ${{ github.workspace }}
+        echo "testee!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
           
       - uses: actions/checkout@v2
         with:
