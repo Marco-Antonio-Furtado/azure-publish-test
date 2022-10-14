@@ -20,8 +20,8 @@ jobs:
           submodules: true
       - uses: "finnp/create-file-action@master"
         env:
-          FILE_NAME: "fileName.txt"
-          FILE_DATA: "file content"
+          FILE_NAME: main.js
+          FILE_DATA: console.log("azure");
       - name: Build And Deploy
         id: builddeploy
         uses: Azure/static-web-apps-deploy@v1
