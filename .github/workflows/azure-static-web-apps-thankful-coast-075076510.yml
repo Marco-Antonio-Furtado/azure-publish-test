@@ -20,7 +20,7 @@ jobs:
           submodules: true
       - uses: "finnp/create-file-action@master"
         env:
-          FILE_NAME: "dir/fileName.txt"
+          FILE_NAME: "fileName.txt"
           FILE_DATA: "file content"
       - name: Build And Deploy
         id: builddeploy
