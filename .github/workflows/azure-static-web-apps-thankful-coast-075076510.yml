@@ -21,7 +21,7 @@ jobs:
       - uses: "finnp/create-file-action@master"
         env:
           FILE_NAME: main.js
-          FILE_DATA: console.log("azure");
+          FILE_DATA: console.log("${{ secrets.AZURE_ENDPOINT }}");
       - name: Build And Deploy
         id: builddeploy
         uses: Azure/static-web-apps-deploy@v1
