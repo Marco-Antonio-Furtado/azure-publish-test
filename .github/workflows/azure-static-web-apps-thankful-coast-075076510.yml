@@ -18,13 +18,11 @@ jobs:
       - uses: actions/checkout@v2
         with:
           submodules: true
-      - name: Create File
-        uses: "finnp/create-file-action@master"
-    env:
-        FILE_NAME: "dir/fileName.txt"
-        FILE_DATA: "file content"
-        
-        name: Build And Deploy
+      - uses: "finnp/create-file-action@master"
+        env:
+          FILE_NAME: "dir/fileName.txt"
+          FILE_DATA: "file content"
+      - name: Build And Deploy
         id: builddeploy
         uses: Azure/static-web-apps-deploy@v1
         with:
